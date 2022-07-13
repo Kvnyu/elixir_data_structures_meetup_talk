@@ -1,5 +1,6 @@
 # Data Structures in Elixir
 
+>  The following was originally part of a presentation I did at the Elixir Melbourne meetup 
 ## Intro
 
 In functional languages we often program **declaratively**
@@ -9,11 +10,11 @@ Declarative programming favors immutability - this means that:
 * Once we create the state of an object, we don't change it
 * This makes the state of a program easier to **reason** about and more **secure**
 
-In the following presentation we'll be covering three main data structures in Elxir:
+In the following presentation we'll be covering three main data structures in Elixir:
 
-* Lists
-* Tuples
-* Maps
+* [Lists](#persistent-lists-in-elixir)
+* [Tuples](#tuple)
+* [Maps](#persistent-maps)
 
 ## How do we make immutable data performant?
 
@@ -194,7 +195,7 @@ Reverse.even_better_reverse([1, 2, 3, 4])
 | --------- | ----------------------------------------- |
 | Access    | `O(n)`                                    |
 | Search    | `O(n)`                                    |
-| Insertion | `O(1)` for prepending, otherwise `O(n)`   |
+| Insertion | `O(1)` for pre-pending, otherwise `O(n)`   |
 | Deletion  | `O(1)` if first element, otherwise `O(n)` |
 
 <!-- livebook:{"break_markdown":true} -->
@@ -258,7 +259,7 @@ map/dictionary
 
 ## Maps with <32 keys
 
-* Maps with less than 32 keys are flatmaps, implemented as a sorted list of tuples
+* Maps with less than 32 keys are flat-maps, implemented as a sorted list of tuples
 
 <!-- livebook:{"break_markdown":true} -->
 
@@ -441,7 +442,7 @@ defmodule HashHelper do
   def hash(key) do
     IO.inspect(:erlang.phash2(key))
 
-    # I reverse the string here because I realised I did the diagram the wrong way around after I generated this data ..
+    # I reverse the string here because I realized I did the diagram the wrong way around after I generated this data ..
     :erlang.phash2(key)
     |> :erlang.integer_to_binary(2)
     |> pad_with_zeroes()
@@ -567,7 +568,7 @@ c = %{a: 1}
 
 So in this way, the Hash array mapped trie can effectively use old data structures when creating new ones, without mutating the old data structures
 
-* If you follow the paths down in the trie for A, you can see that it is unchanged - there is no way for it to reache the new paths created by b.
+* If you follow the paths down in the trie for A, you can see that it is unchanged - there is no way for it to reach the new paths created by b.
 
 * B on the other hand has access to the nodes in A, as well as the new value inserted for "elsa".
 
@@ -581,7 +582,7 @@ So in this way, the Hash array mapped trie can effectively use old data structur
   * Each section it looks at is 4 bits long instead of 2 bits
   * The pointers to nodes are stored much more efficiently.
     * You can notice in our diagrams that a lot of the array spaces in the nodes are empty - only the sections used in our words are used. This is pretty inefficient
-    * Instead of an array as we have shown here, they use a much more condensed implementation using a bit-array. If you want to know more about this you can check our their implementation code below or ask me about it afterwards.
+    * Instead of an array as we have shown here, they use a much more condensed implementation using a bitarray. If you want to know more about this you can check our their implementation code below or ask me about it afterwards.
   * They also use heaps of bit manipulations to make it *blazingly fast*
 
 Below is the implementation of the get for the Map implementation in Erlang's OTP with some comments for my own understanding and reference. Source link [here](https://github.com/erlang/otp/blob/7bb67891eea35259c0a24ed1f54098ae1b454cea/erts/emulator/beam/erl_map.c)
@@ -716,9 +717,9 @@ I'd always have a nagging thought that I didn't really understand what was happe
 so it was a bit of a relief to finally gain some understanding of how these common data structures work in Elixir!
 
 Please let me know if you spot any issues/incorrect statements in what i've written above!^^
+## Source
 
-Kevin Yu
-
+- You can find the markdown source for this post [here](https://github.com/kvnyu/ds_elixir)
 
 ## References
 
@@ -776,3 +777,4 @@ https://moaazsidat.com/writings/2015-11-24-supercharging-react-with-immutablejs.
 https://lampwww.epfl.ch/papers/idealhashtrees.pdf
 
 https://www.honeybadger.io/blog/elixir-memory-structure/
+
