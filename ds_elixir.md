@@ -35,7 +35,7 @@ Persistent data structures are **immutable**, but can **reuse** old parts of its
 
 <!-- livebook:{"break_markdown":true} -->
 
-![](images/persistent_ds.png)
+![](https://github.com/kvnyu/ds_elixir/raw/master/images/persistent_ds.png)
 
 ## Persistent Lists in Elixir
 
@@ -50,7 +50,7 @@ In a singly linked list:
 
 <!-- livebook:{"break_markdown":true} -->
 
-![](images/linked_list_vs_array.png)
+![](https://github.com/kvnyu/ds_elixir/raw/master/images/linked_list_vs_array.png)
 
 ## So why don’t we use an Array to implement the persistent list?
 
@@ -66,7 +66,7 @@ a = [1, 2, 3]
 b = [0 | a]
 ```
 
-![](images/linked_list_add_element.png)
+![](https://github.com/kvnyu/ds_elixir/raw/master/images/linked_list_add_element.png)
 
 <!-- livebook:{"break_markdown":true} -->
 
@@ -74,7 +74,7 @@ b = [0 | a]
 
 <!-- livebook:{"break_markdown":true} -->
 
-![](images/in_memory_linked_list.png)
+![](https://github.com/kvnyu/ds_elixir/raw/master/images/in_memory_linked_list.png)
 
 <!-- livebook:{"break_markdown":true} -->
 
@@ -97,15 +97,15 @@ a = [1, 2, 3]
 b = [4, 5, 6]
 ```
 
-![](images/linked_list_plus_plus.png)
+![](https://github.com/kvnyu/ds_elixir/raw/master/images/linked_list_plus_plus.png)
 
 <!-- livebook:{"break_markdown":true} -->
 
-![](images/linked_list_A_copied.png)
+![](https://github.com/kvnyu/ds_elixir/raw/master/images/linked_list_A_copied.png)
 
 <!-- livebook:{"break_markdown":true} -->
 
-![](images/linked_list_A_point.png)
+![](https://github.com/kvnyu/ds_elixir/raw/master/images/linked_list_A_point.png)
 
 <!-- livebook:{"break_markdown":true} -->
 
@@ -218,7 +218,7 @@ looks something like this in memory
 
 <!-- livebook:{"break_markdown":true} -->
 
-![](images/tuple.png)
+![](https://github.com/kvnyu/ds_elixir/raw/master/images/tuple.png)
 
 <!-- livebook:{"break_markdown":true} -->
 
@@ -267,7 +267,7 @@ As an example, let us look at how the map `%{a => foo, z => bar}` is represented
 
 <!-- livebook:{"break_markdown":true} -->
 
-![](images/flatmap.png)
+![](https://github.com/kvnyu/ds_elixir/raw/master/images/flatmap.png)
 
 <!-- livebook:{"break_markdown":true} -->
 
@@ -383,11 +383,11 @@ A number of other functional languages also use this data structure to implement
 
 <!-- livebook:{"break_markdown":true} -->
 
-![](images/trie_elixir.png)
+![](https://github.com/kvnyu/ds_elixir/raw/master/images/trie_elixir.png)
 
 <!-- livebook:{"break_markdown":true} -->
 
-![](images/trie_elmo.png)
+![](https://github.com/kvnyu/ds_elixir/raw/master/images/trie_elmo.png)
 
 <!-- livebook:{"break_markdown":true} -->
 
@@ -397,7 +397,7 @@ A number of other functional languages also use this data structure to implement
 
 <!-- livebook:{"break_markdown":true} -->
 
-![](images/trie_map.png)
+![](https://github.com/kvnyu/ds_elixir/raw/master/images/trie_map.png)
 
 <!-- livebook:{"break_markdown":true} -->
 
@@ -470,7 +470,7 @@ Technically, we could just insert them like this,
 
 <!-- livebook:{"break_markdown":true} -->
 
-![](images/trie_naive_hash.png)
+![](https://github.com/kvnyu/ds_elixir/raw/master/images/trie_naive_hash.png)
 
 <!-- livebook:{"break_markdown":true} -->
 
@@ -491,7 +491,7 @@ To create wider trees, we can split them into 2 bit sections
 
 <!-- livebook:{"break_markdown":true} -->
 
-![](images/trie_8_bit.png)
+![](https://github.com/kvnyu/ds_elixir/raw/master/images/trie_8_bit.png)
 
 ## Cloning a HAMT
 
@@ -502,7 +502,7 @@ a = %{"elmo" => "cute", "elixir" => "awesome"}
 b = a
 ```
 
-![](images/hamt_clone.png)
+![](https://github.com/kvnyu/ds_elixir/raw/master/images/hamt_clone.png)
 
 ## Adding to a HAMT
 
@@ -526,7 +526,7 @@ c = %{a: 1}
 
 <!-- livebook:{"break_markdown":true} -->
 
-![](images/hamt_clone_a_assign_b.png)
+![](https://github.com/kvnyu/ds_elixir/raw/master/images/hamt_clone_a_assign_b.png)
 
 <!-- livebook:{"break_markdown":true} -->
 
@@ -537,7 +537,7 @@ c = %{a: 1}
 
 <!-- livebook:{"break_markdown":true} -->
 
-![](images/hamt_add_step_1.png)
+![](https://github.com/kvnyu/ds_elixir/raw/master/images/hamt_add_step_1.png)
 
 <!-- livebook:{"break_markdown":true} -->
 
@@ -545,7 +545,7 @@ c = %{a: 1}
 
 <!-- livebook:{"break_markdown":true} -->
 
-![](images/hamt_add_step_2.png)
+![](https://github.com/kvnyu/ds_elixir/raw/master/images/hamt_add_step_2.png)
 
 <!-- livebook:{"break_markdown":true} -->
 
@@ -553,7 +553,7 @@ c = %{a: 1}
 
 <!-- livebook:{"break_markdown":true} -->
 
-![](images/hamt_add_step_3.png)
+![](https://github.com/kvnyu/ds_elixir/raw/master/images/hamt_add_step_3.png)
 
 <!-- livebook:{"break_markdown":true} -->
 
@@ -562,7 +562,7 @@ c = %{a: 1}
 
 <!-- livebook:{"break_markdown":true} -->
 
-![](images/hamt_add_step_4.png)
+![](https://github.com/kvnyu/ds_elixir/raw/master/images/hamt_add_step_4.png)
 
 <!-- livebook:{"break_markdown":true} -->
 
@@ -585,7 +585,7 @@ So in this way, the Hash array mapped trie can effectively use old data structur
     * Instead of an array as we have shown here, they use a much more condensed implementation using a bitarray. If you want to know more about this you can check our their implementation code below or ask me about it afterwards.
   * They also use heaps of bit manipulations to make it *blazingly fast*
 
-Below is the implementation of the get for the Map implementation in Erlang's OTP with some comments for my own understanding and reference. Source link [here](https://github.com/erlang/otp/blob/7bb67891eea35259c0a24ed1f54098ae1b454cea/erts/emulator/beam/erl_map.c)
+Below is the implementation of the get for the Map implementation in Erlang's OTP with some comments for my own understanding and reference. Source link [here](https://github.com/erlang/otp/raw/7bb67891eea35259c0a24ed1f54098ae1b454cea/erts/emulator/beam/erl_map.c)
 
 <!-- livebook:{"break_markdown":true} -->
 
