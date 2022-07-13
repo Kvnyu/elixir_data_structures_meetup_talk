@@ -1,6 +1,6 @@
 # Data Structures in Elixir
 
->  The following was originally part of a presentation I did at the Elixir Melbourne meetup 
+>  The following was originally part of a presentation I did at the Elixir Melbourne meetup on the 19th May, 2022
 ## Intro
 
 In functional languages we often program **declaratively**

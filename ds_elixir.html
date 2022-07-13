@@ -1,0 +1,1108 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>ds_elixir.md</title>
+<meta http-equiv="Content-type" content="text/html;charset=UTF-8">
+
+<style>
+/* https://github.com/microsoft/vscode/blob/master/extensions/markdown-language-features/media/markdown.css */
+/*---------------------------------------------------------------------------------------------
+ *  Copyright (c) Microsoft Corporation. All rights reserved.
+ *  Licensed under the MIT License. See License.txt in the project root for license information.
+ *--------------------------------------------------------------------------------------------*/
+
+body {
+	font-family: var(--vscode-markdown-font-family, -apple-system, BlinkMacSystemFont, "Segoe WPC", "Segoe UI", "Ubuntu", "Droid Sans", sans-serif);
+	font-size: var(--vscode-markdown-font-size, 14px);
+	padding: 0 26px;
+	line-height: var(--vscode-markdown-line-height, 22px);
+	word-wrap: break-word;
+}
+
+#code-csp-warning {
+	position: fixed;
+	top: 0;
+	right: 0;
+	color: white;
+	margin: 16px;
+	text-align: center;
+	font-size: 12px;
+	font-family: sans-serif;
+	background-color:#444444;
+	cursor: pointer;
+	padding: 6px;
+	box-shadow: 1px 1px 1px rgba(0,0,0,.25);
+}
+
+#code-csp-warning:hover {
+	text-decoration: none;
+	background-color:#007acc;
+	box-shadow: 2px 2px 2px rgba(0,0,0,.25);
+}
+
+body.scrollBeyondLastLine {
+	margin-bottom: calc(100vh - 22px);
+}
+
+body.showEditorSelection .code-line {
+	position: relative;
+}
+
+body.showEditorSelection .code-active-line:before,
+body.showEditorSelection .code-line:hover:before {
+	content: "";
+	display: block;
+	position: absolute;
+	top: 0;
+	left: -12px;
+	height: 100%;
+}
+
+body.showEditorSelection li.code-active-line:before,
+body.showEditorSelection li.code-line:hover:before {
+	left: -30px;
+}
+
+.vscode-light.showEditorSelection .code-active-line:before {
+	border-left: 3px solid rgba(0, 0, 0, 0.15);
+}
+
+.vscode-light.showEditorSelection .code-line:hover:before {
+	border-left: 3px solid rgba(0, 0, 0, 0.40);
+}
+
+.vscode-light.showEditorSelection .code-line .code-line:hover:before {
+	border-left: none;
+}
+
+.vscode-dark.showEditorSelection .code-active-line:before {
+	border-left: 3px solid rgba(255, 255, 255, 0.4);
+}
+
+.vscode-dark.showEditorSelection .code-line:hover:before {
+	border-left: 3px solid rgba(255, 255, 255, 0.60);
+}
+
+.vscode-dark.showEditorSelection .code-line .code-line:hover:before {
+	border-left: none;
+}
+
+.vscode-high-contrast.showEditorSelection .code-active-line:before {
+	border-left: 3px solid rgba(255, 160, 0, 0.7);
+}
+
+.vscode-high-contrast.showEditorSelection .code-line:hover:before {
+	border-left: 3px solid rgba(255, 160, 0, 1);
+}
+
+.vscode-high-contrast.showEditorSelection .code-line .code-line:hover:before {
+	border-left: none;
+}
+
+img {
+	max-width: 100%;
+	max-height: 100%;
+}
+
+a {
+	text-decoration: none;
+}
+
+a:hover {
+	text-decoration: underline;
+}
+
+a:focus,
+input:focus,
+select:focus,
+textarea:focus {
+	outline: 1px solid -webkit-focus-ring-color;
+	outline-offset: -1px;
+}
+
+hr {
+	border: 0;
+	height: 2px;
+	border-bottom: 2px solid;
+}
+
+h1 {
+	padding-bottom: 0.3em;
+	line-height: 1.2;
+	border-bottom-width: 1px;
+	border-bottom-style: solid;
+}
+
+h1, h2, h3 {
+	font-weight: normal;
+}
+
+table {
+	border-collapse: collapse;
+}
+
+table > thead > tr > th {
+	text-align: left;
+	border-bottom: 1px solid;
+}
+
+table > thead > tr > th,
+table > thead > tr > td,
+table > tbody > tr > th,
+table > tbody > tr > td {
+	padding: 5px 10px;
+}
+
+table > tbody > tr + tr > td {
+	border-top: 1px solid;
+}
+
+blockquote {
+	margin: 0 7px 0 5px;
+	padding: 0 16px 0 10px;
+	border-left-width: 5px;
+	border-left-style: solid;
+}
+
+code {
+	font-family: Menlo, Monaco, Consolas, "Droid Sans Mono", "Courier New", monospace, "Droid Sans Fallback";
+	font-size: 1em;
+	line-height: 1.357em;
+}
+
+body.wordWrap pre {
+	white-space: pre-wrap;
+}
+
+pre:not(.hljs),
+pre.hljs code > div {
+	padding: 16px;
+	border-radius: 3px;
+	overflow: auto;
+}
+
+pre code {
+	color: var(--vscode-editor-foreground);
+	tab-size: 4;
+}
+
+/** Theming */
+
+.vscode-light pre {
+	background-color: rgba(220, 220, 220, 0.4);
+}
+
+.vscode-dark pre {
+	background-color: rgba(10, 10, 10, 0.4);
+}
+
+.vscode-high-contrast pre {
+	background-color: rgb(0, 0, 0);
+}
+
+.vscode-high-contrast h1 {
+	border-color: rgb(0, 0, 0);
+}
+
+.vscode-light table > thead > tr > th {
+	border-color: rgba(0, 0, 0, 0.69);
+}
+
+.vscode-dark table > thead > tr > th {
+	border-color: rgba(255, 255, 255, 0.69);
+}
+
+.vscode-light h1,
+.vscode-light hr,
+.vscode-light table > tbody > tr + tr > td {
+	border-color: rgba(0, 0, 0, 0.18);
+}
+
+.vscode-dark h1,
+.vscode-dark hr,
+.vscode-dark table > tbody > tr + tr > td {
+	border-color: rgba(255, 255, 255, 0.18);
+}
+
+</style>
+
+<style>
+/* Tomorrow Theme */
+/* http://jmblog.github.com/color-themes-for-google-code-highlightjs */
+/* Original theme - https://github.com/chriskempson/tomorrow-theme */
+
+/* Tomorrow Comment */
+.hljs-comment,
+.hljs-quote {
+	color: #8e908c;
+}
+
+/* Tomorrow Red */
+.hljs-variable,
+.hljs-template-variable,
+.hljs-tag,
+.hljs-name,
+.hljs-selector-id,
+.hljs-selector-class,
+.hljs-regexp,
+.hljs-deletion {
+	color: #c82829;
+}
+
+/* Tomorrow Orange */
+.hljs-number,
+.hljs-built_in,
+.hljs-builtin-name,
+.hljs-literal,
+.hljs-type,
+.hljs-params,
+.hljs-meta,
+.hljs-link {
+	color: #f5871f;
+}
+
+/* Tomorrow Yellow */
+.hljs-attribute {
+	color: #eab700;
+}
+
+/* Tomorrow Green */
+.hljs-string,
+.hljs-symbol,
+.hljs-bullet,
+.hljs-addition {
+	color: #718c00;
+}
+
+/* Tomorrow Blue */
+.hljs-title,
+.hljs-section {
+	color: #4271ae;
+}
+
+/* Tomorrow Purple */
+.hljs-keyword,
+.hljs-selector-tag {
+	color: #8959a8;
+}
+
+.hljs {
+	display: block;
+	overflow-x: auto;
+	color: #4d4d4c;
+	padding: 0.5em;
+}
+
+.hljs-emphasis {
+	font-style: italic;
+}
+
+.hljs-strong {
+	font-weight: bold;
+}
+</style>
+
+<style>
+/*
+ * Markdown PDF CSS
+ */
+
+ body {
+	font-family: -apple-system, BlinkMacSystemFont, "Segoe WPC", "Segoe UI", "Ubuntu", "Droid Sans", sans-serif, "Meiryo";
+	padding: 0 12px;
+}
+
+pre {
+	background-color: #f8f8f8;
+	border: 1px solid #cccccc;
+	border-radius: 3px;
+	overflow-x: auto;
+	white-space: pre-wrap;
+	overflow-wrap: break-word;
+}
+
+pre:not(.hljs) {
+	padding: 23px;
+	line-height: 19px;
+}
+
+blockquote {
+	background: rgba(127, 127, 127, 0.1);
+	border-color: rgba(0, 122, 204, 0.5);
+}
+
+.emoji {
+	height: 1.4em;
+}
+
+code {
+	font-size: 14px;
+	line-height: 19px;
+}
+
+/* for inline code */
+:not(pre):not(.hljs) > code {
+	color: #C9AE75; /* Change the old color so it seems less like an error */
+	font-size: inherit;
+}
+
+/* Page Break : use <div class="page"/> to insert page break
+-------------------------------------------------------- */
+.page {
+	page-break-after: always;
+}
+
+</style>
+
+<script src="https://unpkg.com/mermaid/dist/mermaid.min.js"></script>
+</head>
+<body>
+  <script>
+    mermaid.initialize({
+      startOnLoad: true,
+      theme: document.body.classList.contains('vscode-dark') || document.body.classList.contains('vscode-high-contrast')
+          ? 'dark'
+          : 'default'
+    });
+  </script>
+<h1 id="data-structures-in-elixir">Data Structures in Elixir</h1>
+<blockquote>
+<p>The following was originally part of a presentation I did at the Elixir Melbourne meetup on the 19th May, 2022</p>
+</blockquote>
+<h2 id="intro">Intro</h2>
+<p>In functional languages we often program <strong>declaratively</strong></p>
+<p>Declarative programming favors immutability - this means that:</p>
+<ul>
+<li>Once we create the state of an object, we don't change it</li>
+<li>This makes the state of a program easier to <strong>reason</strong> about and more <strong>secure</strong></li>
+</ul>
+<p>In the following presentation we'll be covering three main data structures in Elixir:</p>
+<ul>
+<li><a href="#persistent-lists-in-elixir">Lists</a></li>
+<li><a href="#tuple">Tuples</a></li>
+<li><a href="#persistent-maps">Maps</a></li>
+</ul>
+<h2 id="how-do-we-make-immutable-data-performant">How do we make immutable data performant?</h2>
+<p>A naive way to implement immutable data is just to copy the entire piece of data every time we need to change it</p>
+<ul>
+<li>e.g for <code>a = [1,2,3]</code> <code>List.append(a, 4)</code> copies the entire of <code>a</code> and adds a <code>4</code> on the end</li>
+</ul>
+<p>The problem with this is that we get <code>O(n)</code> given the length of the list n</p>
+<p>This is why we need <strong>persistent data structures</strong></p>
+<h2 id="persistent-data-structures">Persistent data structures</h2>
+<p>Persistent data structures are <strong>immutable</strong>, but can <strong>reuse</strong> old parts of itself when modified (through <strong>structural sharing</strong>)</p>
+<ul>
+<li>This makes its <strong>storage</strong> and <strong>operations</strong> more efficient, as we're not cloning the entire data structure each time</li>
+<li>Below, the <strong>new</strong> data structure can point to already initialized pieces of data in the <strong>old</strong> data structure</li>
+</ul>
+<!-- livebook:{"break_markdown":true} -->
+<p><img src="images/persistent_ds.png" alt=""></p>
+<h2 id="persistent-lists-in-elixir">Persistent Lists in Elixir</h2>
+<p>In Erlang/Elixir, the list is implemented using a linked list, rather than an array as you'd see in imperative languages like Python or C</p>
+<h2 id="difference-between-linked-list-and-an-array">Difference between Linked List and an Array</h2>
+<p>In a singly linked list:</p>
+<ul>
+<li>The elements are not stored in contiguous memory locations</li>
+<li>The size of the linked list doesn’t need to be known in advance, it can increase at runtime depending on the number of elements dynamically</li>
+</ul>
+<!-- livebook:{"break_markdown":true} -->
+<p><img src="images/linked_list_vs_array.png" alt=""></p>
+<h2 id="so-why-dont-we-use-an-array-to-implement-the-persistent-list">So why don’t we use an Array to implement the persistent list?</h2>
+<ul>
+<li>You'd have to clone the array every time to keep it immutable, which leads to O(N) time complexity</li>
+<li>Memory usage is also doubled since you need to keep the old array as you’re copying it to the new one</li>
+</ul>
+<h2 id="linked-list-operations-adding-an-element">Linked list operations: adding an element</h2>
+<ul>
+<li>Adding to the beginning of a linked list is O(1). Adding to the rest of the list is O(n)</li>
+</ul>
+<pre class="hljs"><code><div>a = [<span class="hljs-number">1</span>, <span class="hljs-number">2</span>, <span class="hljs-number">3</span>]
+b = [0 | a]
+</div></code></pre>
+<p><img src="images/linked_list_add_element.png" alt=""></p>
+<!-- livebook:{"break_markdown":true} -->
+<ul>
+<li>At the implementation level, we are just pointing <code>B</code> to a node with value <code>0</code>, and then that node to the head of <code>A</code></li>
+</ul>
+<!-- livebook:{"break_markdown":true} -->
+<p><img src="images/in_memory_linked_list.png" alt=""></p>
+<!-- livebook:{"break_markdown":true} -->
+<p>in memory, <code>a</code> might look something like this</p>
+<h2 id="modifying-the-first-element">Modifying the first element</h2>
+<ul>
+<li>This is O(1) as well, as you can just create a new node, and point it to the head + 1th node</li>
+</ul>
+<h2 id="what-can-we-do-with-this-knowledge">What can we do with this knowledge ?</h2>
+<p>Let's reason about the <code>++</code> operator</p>
+<h2 id="the--operator">The ++ operator</h2>
+<p>When you call <code>C = A ++ B</code>, under the hood the left side <code>A</code> is copied, and then the last node is pointed to the list on the right</p>
+<pre class="hljs"><code><div>a = [<span class="hljs-number">1</span>, <span class="hljs-number">2</span>, <span class="hljs-number">3</span>]
+b = [<span class="hljs-number">4</span>, <span class="hljs-number">5</span>, <span class="hljs-number">6</span>]
+</div></code></pre>
+<p><img src="images/linked_list_plus_plus.png" alt=""></p>
+<!-- livebook:{"break_markdown":true} -->
+<p><img src="images/linked_list_A_copied.png" alt=""></p>
+<!-- livebook:{"break_markdown":true} -->
+<p><img src="images/linked_list_A_point.png" alt=""></p>
+<!-- livebook:{"break_markdown":true} -->
+<p>So we can see here that the main cost of this operation is in the copying of the first list, A.</p>
+<p>In general, the time complexity is O(n) where n is the length of the first list.</p>
+<p>Let’s keep that in mind as we go through an example using this operator, to see how we can use this operator optimally.</p>
+<h2 id="reversing-a-list">Reversing a list</h2>
+<h3 id="naive-solution">Naive solution</h3>
+<pre class="hljs"><code><div><span class="hljs-class"><span class="hljs-keyword">defmodule</span> <span class="hljs-title">Reverse</span></span> <span class="hljs-keyword">do</span>
+  <span class="hljs-comment"># A body recursive implementation</span>
+  <span class="hljs-function"><span class="hljs-keyword">def</span> <span class="hljs-title">naive_reverse</span></span>([head | tail]) <span class="hljs-keyword">do</span>
+    reverse_tail = naive_reverse(tail)
+    new_head = [head]
+    IO.write(inspect(reverse_tail))
+    IO.write(<span class="hljs-string">" ++ "</span>)
+    IO.inspect(new_head)
+    IO.inspect(<span class="hljs-string">"-----------------"</span>)
+
+    result = reverse_tail ++ new_head
+
+    result
+  <span class="hljs-keyword">end</span>
+
+  <span class="hljs-function"><span class="hljs-keyword">def</span> <span class="hljs-title">naive_reverse</span></span>([]) <span class="hljs-keyword">do</span>
+    []
+  <span class="hljs-keyword">end</span>
+<span class="hljs-keyword">end</span>
+
+Reverse.naive_reverse([<span class="hljs-number">1</span>, <span class="hljs-number">2</span>, <span class="hljs-number">3</span>, <span class="hljs-number">4</span>])
+</div></code></pre>
+<ul>
+<li>We only care about what is on the left side</li>
+<li>Remember, <code>++</code> copies the entirety of whatever is on its left</li>
+<li>This means that for a list of length n, this algorithm will copy it n-1, n-2… 1 elements in total. Which leads to O(n^2) time complexity. This ain’t great!</li>
+</ul>
+<h2 id="better-solution">Better solution</h2>
+<pre class="hljs"><code><div><span class="hljs-class"><span class="hljs-keyword">defmodule</span> <span class="hljs-title">Reverse</span></span> <span class="hljs-keyword">do</span>
+  <span class="hljs-function"><span class="hljs-keyword">def</span> <span class="hljs-title">better_reverse</span></span>([head | tail], acc) <span class="hljs-keyword">do</span>
+    reverse_tail = acc
+    new_head = [head]
+
+    IO.write(inspect(new_head))
+    IO.write(<span class="hljs-string">" ++ "</span>)
+    IO.inspect(reverse_tail)
+    IO.inspect(<span class="hljs-string">"-----------------"</span>)
+
+    better_reverse(tail, new_head ++ reverse_tail)
+  <span class="hljs-keyword">end</span>
+
+  <span class="hljs-function"><span class="hljs-keyword">def</span> <span class="hljs-title">better_reverse</span></span>([], acc) <span class="hljs-keyword">do</span>
+    acc
+  <span class="hljs-keyword">end</span>
+<span class="hljs-keyword">end</span>
+
+Reverse.better_reverse([<span class="hljs-number">1</span>, <span class="hljs-number">2</span>, <span class="hljs-number">3</span>, <span class="hljs-number">4</span>], [])
+</div></code></pre>
+<ul>
+<li>On the left side, we can see that we are only ever adding one element, rather than a whole list</li>
+<li>This means that we are only ever cloning one element per iteration</li>
+<li>For a list of length n, this algorithm will then copy it 1*n times, meaning O(n) time complexity. Nice!</li>
+</ul>
+<pre class="hljs"><code><div><span class="hljs-class"><span class="hljs-keyword">defmodule</span> <span class="hljs-title">Reverse</span></span> <span class="hljs-keyword">do</span>
+  <span class="hljs-function"><span class="hljs-keyword">def</span> <span class="hljs-title">even_better_reverse</span></span>(list, acc \\ [])
+
+  <span class="hljs-function"><span class="hljs-keyword">def</span> <span class="hljs-title">even_better_reverse</span></span>([head | tail], acc) <span class="hljs-keyword">do</span>
+    even_better_reverse(tail, [head | acc])
+  <span class="hljs-keyword">end</span>
+
+  <span class="hljs-function"><span class="hljs-keyword">def</span> <span class="hljs-title">even_better_reverse</span></span>([], acc) <span class="hljs-keyword">do</span>
+    acc
+  <span class="hljs-keyword">end</span>
+<span class="hljs-keyword">end</span>
+
+Reverse.even_better_reverse([<span class="hljs-number">1</span>, <span class="hljs-number">2</span>, <span class="hljs-number">3</span>, <span class="hljs-number">4</span>])
+</div></code></pre>
+<table>
+<thead>
+<tr>
+<th>Operation</th>
+<th>Time Complexity</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Access</td>
+<td><code>O(n)</code></td>
+</tr>
+<tr>
+<td>Search</td>
+<td><code>O(n)</code></td>
+</tr>
+<tr>
+<td>Insertion</td>
+<td><code>O(1)</code> for pre-pending, otherwise <code>O(n)</code></td>
+</tr>
+<tr>
+<td>Deletion</td>
+<td><code>O(1)</code> if first element, otherwise <code>O(n)</code></td>
+</tr>
+</tbody>
+</table>
+<!-- livebook:{"break_markdown":true} -->
+<p>As you can see, Linked Lists are really good for insertion, but not so great for access/search</p>
+<h2 id="tuple">Tuple</h2>
+<ul>
+<li>Under the hood, a tuple’s implementation is just an array
+<ul>
+<li>This means that they are not persistent
+<ul>
+<li>Every time you want to update a tuple, a new one must be created (since we still want to keep things immutable).</li>
+</ul>
+</li>
+</ul>
+</li>
+<li>No references to the old tuple are used</li>
+<li>For example, the tuple</li>
+</ul>
+<pre class="hljs"><code><div>a = {a, <span class="hljs-number">42</span>, <span class="hljs-symbol">:ok</span>}
+</div></code></pre>
+<p>looks something like this in memory</p>
+<!-- livebook:{"break_markdown":true} -->
+<p><img src="images/tuple.png" alt=""></p>
+<!-- livebook:{"break_markdown":true} -->
+<p>This means that we have</p>
+<table>
+<thead>
+<tr>
+<th>Operation</th>
+<th>Time Complexity</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Access</td>
+<td>O(1)</td>
+</tr>
+<tr>
+<td>Search</td>
+<td>O(n)</td>
+</tr>
+<tr>
+<td>Insertion</td>
+<td>O(n)</td>
+</tr>
+<tr>
+<td>Deletion</td>
+<td>O(n)</td>
+</tr>
+</tbody>
+</table>
+<p>So they’re really good for <strong>reading</strong>, but not so great for <strong>creating</strong>, <strong>inserting</strong> and <strong>deleting</strong>.</p>
+<p>This means that they are ideal when you have small list of values that need be accessed quickly
+This makes sense when you see where they are commonly used, like in function returns as well as pattern matching</p>
+<pre class="hljs"><code><div>{<span class="hljs-symbol">:ok</span>, <span class="hljs-number">1</span>}
+</div></code></pre>
+<h2 id="when-to-use-lists-vs-tuples">When to use lists vs tuples?</h2>
+<ul>
+<li>When you want fast read time, but won't be changing the value much, use <code>Tuples</code>
+<ul>
+<li>So they are often used in return tuples like <code>{:ok, 1}</code></li>
+</ul>
+</li>
+<li>When you are inserting frequently and need it to be fast use the <code>List</code>
+<ul>
+<li>For example when aggregating values</li>
+</ul>
+</li>
+</ul>
+<h2 id="persistent-maps">Persistent Maps</h2>
+<p>map/dictionary</p>
+<!-- livebook:{"break_markdown":true} -->
+<ul>
+<li>In Elixir, maps aren't implemented as a HashMap like in other imperative languages like Python or C.
+<ul>
+<li>HashMaps aren't great if you want a performant immutable key/value store</li>
+<li>Its hard to update key/value pairs without duplicating the entire data structure</li>
+</ul>
+</li>
+</ul>
+<h2 id="maps-with-32-keys">Maps with &lt;32 keys</h2>
+<ul>
+<li>Maps with less than 32 keys are flat-maps, implemented as a sorted list of tuples</li>
+</ul>
+<!-- livebook:{"break_markdown":true} -->
+<p>As an example, let us look at how the map <code>%{a =&gt; foo, z =&gt; bar}</code> is represented:</p>
+<!-- livebook:{"break_markdown":true} -->
+<p><img src="images/flatmap.png" alt=""></p>
+<!-- livebook:{"break_markdown":true} -->
+<ul>
+<li>Since it is sorted, this means that we can actually predict the order of its keys</li>
+</ul>
+<pre class="hljs"><code><div>m = %{
+  <span class="hljs-string">"a"</span> =&gt; <span class="hljs-string">"foo"</span>,
+  <span class="hljs-string">"z"</span> =&gt; <span class="hljs-string">"bar"</span>,
+  <span class="hljs-number">3</span> =&gt; <span class="hljs-keyword">nil</span>,
+  <span class="hljs-number">4</span> =&gt; <span class="hljs-keyword">nil</span>,
+  <span class="hljs-number">5</span> =&gt; <span class="hljs-keyword">nil</span>,
+  <span class="hljs-number">6</span> =&gt; <span class="hljs-keyword">nil</span>,
+  <span class="hljs-number">7</span> =&gt; <span class="hljs-keyword">nil</span>,
+  <span class="hljs-number">8</span> =&gt; <span class="hljs-keyword">nil</span>,
+  <span class="hljs-number">9</span> =&gt; <span class="hljs-keyword">nil</span>,
+  <span class="hljs-number">10</span> =&gt; <span class="hljs-keyword">nil</span>,
+  <span class="hljs-number">11</span> =&gt; <span class="hljs-keyword">nil</span>,
+  <span class="hljs-number">12</span> =&gt; <span class="hljs-keyword">nil</span>,
+  <span class="hljs-number">13</span> =&gt; <span class="hljs-keyword">nil</span>,
+  <span class="hljs-number">14</span> =&gt; <span class="hljs-keyword">nil</span>,
+  <span class="hljs-number">15</span> =&gt; <span class="hljs-keyword">nil</span>,
+  <span class="hljs-number">16</span> =&gt; <span class="hljs-keyword">nil</span>,
+  <span class="hljs-number">17</span> =&gt; <span class="hljs-keyword">nil</span>,
+  <span class="hljs-number">18</span> =&gt; <span class="hljs-keyword">nil</span>,
+  <span class="hljs-number">19</span> =&gt; <span class="hljs-keyword">nil</span>,
+  <span class="hljs-number">20</span> =&gt; <span class="hljs-keyword">nil</span>,
+  <span class="hljs-number">21</span> =&gt; <span class="hljs-keyword">nil</span>,
+  <span class="hljs-number">22</span> =&gt; <span class="hljs-keyword">nil</span>,
+  <span class="hljs-number">23</span> =&gt; <span class="hljs-keyword">nil</span>,
+  <span class="hljs-number">24</span> =&gt; <span class="hljs-keyword">nil</span>,
+  <span class="hljs-number">25</span> =&gt; <span class="hljs-keyword">nil</span>,
+  <span class="hljs-number">26</span> =&gt; <span class="hljs-keyword">nil</span>,
+  <span class="hljs-number">27</span> =&gt; <span class="hljs-keyword">nil</span>,
+  <span class="hljs-number">28</span> =&gt; <span class="hljs-keyword">nil</span>,
+  <span class="hljs-number">29</span> =&gt; <span class="hljs-keyword">nil</span>,
+  <span class="hljs-number">30</span> =&gt; <span class="hljs-keyword">nil</span>,
+  <span class="hljs-number">31</span> =&gt; <span class="hljs-keyword">nil</span>,
+  <span class="hljs-number">32</span> =&gt; <span class="hljs-keyword">nil</span>
+}
+
+m |&gt; Map.keys()
+</div></code></pre>
+<p>How come the &quot;a&quot; and &quot;z&quot; keys are at the end though?</p>
+<ul>
+<li>In Elixir, all values (terms) can be compared with each other.
+<ul>
+<li>This means that the order of the keys is predictable</li>
+</ul>
+</li>
+<li>The priority of values (terms) is
+<ul>
+<li><code>number &lt; atom &lt; reference &lt; function &lt; port &lt; pid &lt; tuple &lt; map &lt; list &lt; bitstring</code></li>
+</ul>
+</li>
+<li>Since numbers are smaller than bitstrings, they all come before the strings (which are represented as lists in erlang/elixir)</li>
+</ul>
+<!-- livebook:{"break_markdown":true} -->
+<p>ok, but what happens if we have &gt; 32 keys ...</p>
+<pre class="hljs"><code><div>m = %{
+  <span class="hljs-number">1</span> =&gt; <span class="hljs-keyword">nil</span>,
+  <span class="hljs-number">2</span> =&gt; <span class="hljs-keyword">nil</span>,
+  <span class="hljs-number">3</span> =&gt; <span class="hljs-keyword">nil</span>,
+  <span class="hljs-number">4</span> =&gt; <span class="hljs-keyword">nil</span>,
+  <span class="hljs-number">5</span> =&gt; <span class="hljs-keyword">nil</span>,
+  <span class="hljs-number">6</span> =&gt; <span class="hljs-keyword">nil</span>,
+  <span class="hljs-number">7</span> =&gt; <span class="hljs-keyword">nil</span>,
+  <span class="hljs-number">8</span> =&gt; <span class="hljs-keyword">nil</span>,
+  <span class="hljs-number">9</span> =&gt; <span class="hljs-keyword">nil</span>,
+  <span class="hljs-number">10</span> =&gt; <span class="hljs-keyword">nil</span>,
+  <span class="hljs-number">11</span> =&gt; <span class="hljs-keyword">nil</span>,
+  <span class="hljs-number">12</span> =&gt; <span class="hljs-keyword">nil</span>,
+  <span class="hljs-number">13</span> =&gt; <span class="hljs-keyword">nil</span>,
+  <span class="hljs-number">14</span> =&gt; <span class="hljs-keyword">nil</span>,
+  <span class="hljs-number">15</span> =&gt; <span class="hljs-keyword">nil</span>,
+  <span class="hljs-number">16</span> =&gt; <span class="hljs-keyword">nil</span>,
+  <span class="hljs-number">17</span> =&gt; <span class="hljs-keyword">nil</span>,
+  <span class="hljs-number">18</span> =&gt; <span class="hljs-keyword">nil</span>,
+  <span class="hljs-number">19</span> =&gt; <span class="hljs-keyword">nil</span>,
+  <span class="hljs-number">20</span> =&gt; <span class="hljs-keyword">nil</span>,
+  <span class="hljs-number">21</span> =&gt; <span class="hljs-keyword">nil</span>,
+  <span class="hljs-number">22</span> =&gt; <span class="hljs-keyword">nil</span>,
+  <span class="hljs-number">23</span> =&gt; <span class="hljs-keyword">nil</span>,
+  <span class="hljs-number">24</span> =&gt; <span class="hljs-keyword">nil</span>,
+  <span class="hljs-number">25</span> =&gt; <span class="hljs-keyword">nil</span>,
+  <span class="hljs-number">26</span> =&gt; <span class="hljs-keyword">nil</span>,
+  <span class="hljs-number">27</span> =&gt; <span class="hljs-keyword">nil</span>,
+  <span class="hljs-number">28</span> =&gt; <span class="hljs-keyword">nil</span>,
+  <span class="hljs-number">29</span> =&gt; <span class="hljs-keyword">nil</span>,
+  <span class="hljs-number">30</span> =&gt; <span class="hljs-keyword">nil</span>,
+  <span class="hljs-number">31</span> =&gt; <span class="hljs-keyword">nil</span>,
+  <span class="hljs-number">32</span> =&gt; <span class="hljs-keyword">nil</span>,
+  <span class="hljs-number">33</span> =&gt; <span class="hljs-keyword">nil</span>
+}
+
+m |&gt; Map.keys()
+</div></code></pre>
+<p>What happened? This is because when we exceed 32 keys, Maps become implemented using a different data structure, the Hash Array Mapped Trie (HAMT) so it is no longer sorted.</p>
+<p>A number of other functional languages also use this data structure to implement their Map (e.g Scala, Clojure)</p>
+<h2 id="maps-with--32-keys-with-the-hamt-hash-array-mapped-tree">Maps with &gt; 32 keys with the HAMT (Hash Array Mapped Tree)</h2>
+<ul>
+<li>HAMT combines
+<ul>
+<li>Hashing</li>
+<li>Trie data structure
+<h4 id="disclaimer">Disclaimer</h4>
+</li>
+</ul>
+</li>
+<li>I will be using a simplified version of the HAMT and much lower values (e.g 8 bit hash instead of 32 bits) for the ease of explanation</li>
+</ul>
+<h2 id="tries">Tries</h2>
+<ul>
+<li>Using Tries, we can store keys (or strings)</li>
+<li>They allow for efficient insertion and re<strong>Trie</strong>val of strings</li>
+</ul>
+<!-- livebook:{"break_markdown":true} -->
+<p><img src="images/trie_elixir.png" alt=""></p>
+<!-- livebook:{"break_markdown":true} -->
+<p><img src="images/trie_elmo.png" alt=""></p>
+<!-- livebook:{"break_markdown":true} -->
+<ul>
+<li>As you can see, this allows us to “reuse” the parts of the string that is shared.</li>
+<li>Naively, you could even implement some kind of Map with this data structure like this</li>
+<li>Lets say we wanted to store  <code>a = %{&quot;elmo&quot; =&gt; &quot;cute&quot;, &quot;elixir&quot; =&gt; &quot;awesome&quot;}</code></li>
+</ul>
+<!-- livebook:{"break_markdown":true} -->
+<p><img src="images/trie_map.png" alt=""></p>
+<!-- livebook:{"break_markdown":true} -->
+<ul>
+<li>This way, if you call <code>Map.get(a, &quot;elixir&quot;)</code> , you can just “walk” down the tree until you hit a leaf, and get the value at the leaf.</li>
+<li>This isn’t great though, for a couple of reasons
+<ul>
+<li>The tree can become pretty deep. Ideally we’d want a shallow tree (means less steps to get to our value)</li>
+<li>Lookup will take O(n), where n is the length of the key (we can do better)</li>
+</ul>
+</li>
+</ul>
+<p>This is where Hashing comes in</p>
+<h2 id="hashing">Hashing</h2>
+<p>Hashing gives us an alternative &quot;key&quot; to use to insert into the Trie</p>
+<ul>
+<li>For example, we can hash <code>&quot;elmo&quot;</code> to <code>&quot;11100000&quot;</code> and insert this as our <strong>key</strong> instead of <code>&quot;elmo&quot;</code></li>
+</ul>
+<p>The advantage of this is:</p>
+<ul>
+<li>Our keys (and therefore the depth of the Trie) is now fairly predictable</li>
+<li>We can use bit manipulation and various tricks to make storage and operations efficient since our key is now a binary</li>
+</ul>
+<!-- livebook:{"break_markdown":true} -->
+<p>Lets say that we're inserting <code>A = %{&quot;elmo&quot; =&gt; &quot;cute&quot;, &quot;elixir&quot; =&gt; &quot;awesome&quot;}</code></p>
+<pre class="hljs"><code><div><span class="hljs-class"><span class="hljs-keyword">defmodule</span> <span class="hljs-title">HashHelper</span></span> <span class="hljs-keyword">do</span>
+  <span class="hljs-function"><span class="hljs-keyword">def</span> <span class="hljs-title">pad_with_zeroes</span></span>(binary) <span class="hljs-keyword">do</span>
+    <span class="hljs-keyword">case</span> {binary, String.length(binary)} <span class="hljs-keyword">do</span>
+      {_, <span class="hljs-number">32</span>} -&gt;
+        binary
+
+      {binary, _} -&gt;
+        pad_with_zeroes(<span class="hljs-string">"0"</span> &lt;&gt; binary)
+    <span class="hljs-keyword">end</span>
+  <span class="hljs-keyword">end</span>
+
+  <span class="hljs-function"><span class="hljs-keyword">def</span> <span class="hljs-title">partition_hash</span></span>(hash) <span class="hljs-keyword">do</span>
+    <span class="hljs-keyword">for</span> &lt;&lt;hashed_partition::binary<span class="hljs-number">-2</span> &lt;- hash&gt;&gt;, <span class="hljs-symbol">do:</span> hashed_partition
+  <span class="hljs-keyword">end</span>
+
+  <span class="hljs-function"><span class="hljs-keyword">def</span> <span class="hljs-title">hash</span></span>(key) <span class="hljs-keyword">do</span>
+    IO.inspect(<span class="hljs-symbol">:erlang</span>.phash2(key))
+
+    <span class="hljs-comment"># I reverse the string here because I realized I did the diagram the wrong way around after I generated this data ..</span>
+    <span class="hljs-symbol">:erlang</span>.phash2(key)
+    |&gt; <span class="hljs-symbol">:erlang</span>.integer_to_binary(<span class="hljs-number">2</span>)
+    |&gt; pad_with_zeroes()
+    |&gt; String.reverse()
+    |&gt; String.slice(<span class="hljs-number">-8</span>, <span class="hljs-number">8</span>)
+  <span class="hljs-keyword">end</span>
+<span class="hljs-keyword">end</span>
+
+<span class="hljs-string">"elmo"</span> |&gt; HashHelper.hash() |&gt; IO.inspect(<span class="hljs-symbol">label:</span> <span class="hljs-string">"hash(elmo) "</span>)
+<span class="hljs-string">"elixir"</span> |&gt; HashHelper.hash() |&gt; IO.inspect(<span class="hljs-symbol">label:</span> <span class="hljs-string">"hash(elixir)"</span>)
+<span class="hljs-string">"elsa"</span> |&gt; HashHelper.hash() |&gt; IO.inspect(<span class="hljs-symbol">label:</span> <span class="hljs-string">"hash(elsa)"</span>)
+</div></code></pre>
+<ul>
+<li>
+<p>So we're inserting <code>A = %{&quot;elmo&quot; =&gt; &quot;cute&quot;, &quot;elixir&quot; =&gt; &quot;awesome&quot;}</code></p>
+</li>
+<li>
+<p>We hash &quot;elmo&quot; and &quot;elixir&quot; to get</p>
+<ul>
+<li><code>hash(elmo) = &quot;11100000&quot;</code>, <code>hash(elixir) = &quot;10000000”</code></li>
+</ul>
+</li>
+<li>
+<p>So instead of inserting the letters of the key into the trie, we can just insert using this binary representation</p>
+</li>
+</ul>
+<!-- livebook:{"break_markdown":true} -->
+<p>Technically, we could just insert them like this,</p>
+<!-- livebook:{"break_markdown":true} -->
+<p><img src="images/trie_naive_hash.png" alt=""></p>
+<!-- livebook:{"break_markdown":true} -->
+<p>But this means that the tree becomes really deep, as it will take 8 steps each time to reach a leaf</p>
+<ul>
+<li>We want wider trees for faster lookup</li>
+</ul>
+<p>To create wider trees, we can split them into 2 bit sections</p>
+<pre class="hljs"><code><div><span class="hljs-string">"elmo"</span> |&gt; HashHelper.hash() |&gt; HashHelper.partition_hash() |&gt; IO.inspect(<span class="hljs-symbol">label:</span> <span class="hljs-string">"hash(elmo) "</span>)
+<span class="hljs-string">"elixir"</span> |&gt; HashHelper.hash() |&gt; HashHelper.partition_hash() |&gt; IO.inspect(<span class="hljs-symbol">label:</span> <span class="hljs-string">"hash(elixir)"</span>)
+<span class="hljs-string">"elsa"</span> |&gt; HashHelper.hash() |&gt; HashHelper.partition_hash() |&gt; IO.inspect(<span class="hljs-symbol">label:</span> <span class="hljs-string">"hash(elsa)"</span>)
+</div></code></pre>
+<ul>
+<li>So when we are inserting or looking up, we check the hashed binary 2 bits at a time (instead of 1)
+<ul>
+<li>So to insert &quot;elmo&quot; we first look at “00”, then “00” again, and then “10” …</li>
+</ul>
+</li>
+</ul>
+<!-- livebook:{"break_markdown":true} -->
+<p><img src="images/trie_8_bit.png" alt=""></p>
+<h2 id="cloning-a-hamt">Cloning a HAMT</h2>
+<p>We can easily clone by pointing the new variable to the head of the new variable to the same object</p>
+<pre class="hljs"><code><div>a = %{<span class="hljs-string">"elmo"</span> =&gt; <span class="hljs-string">"cute"</span>, <span class="hljs-string">"elixir"</span> =&gt; <span class="hljs-string">"awesome"</span>}
+b = a
+</div></code></pre>
+<p><img src="images/hamt_clone.png" alt=""></p>
+<h2 id="adding-to-a-hamt">Adding to a HAMT</h2>
+<p>Say we wanted to add the key value pair <code>&quot;elsa&quot; =&gt; &quot;princess&quot;</code>  to A</p>
+<pre class="hljs"><code><div>a = %{<span class="hljs-string">"elmo"</span> =&gt; <span class="hljs-string">"cute"</span>, <span class="hljs-string">"elixir"</span> =&gt; <span class="hljs-string">"awesome"</span>}
+b = Map.put(a, <span class="hljs-string">"elsa"</span>, <span class="hljs-string">"princess"</span>)
+a |&gt; IO.inspect()
+</div></code></pre>
+<pre class="hljs"><code><div>c = %{<span class="hljs-symbol">a:</span> <span class="hljs-number">1</span>}
+</div></code></pre>
+<ul>
+<li><code>elsa = [&quot;00&quot;, &quot;00&quot;, &quot;00&quot;, &quot;00&quot;]</code></li>
+<li>Here, <code>elsa</code> would follow the same path as “elixir” [&quot;10&quot;, &quot;00&quot;, &quot;00&quot;, &quot;00&quot;] for 3 nodes, and then diverge.
+<ul>
+<li>But we can’t modify the original Trie since this would be a mutation</li>
+</ul>
+</li>
+<li>How can we add the new key value pair while still retaining the key value pairs?</li>
+<li>Lets first clone A and assign to B</li>
+</ul>
+<!-- livebook:{"break_markdown":true} -->
+<p><img src="images/hamt_clone_a_assign_b.png" alt=""></p>
+<!-- livebook:{"break_markdown":true} -->
+<ul>
+<li>Now lets insert <code>&quot;elsa&quot; =&gt; &quot;princess&quot;</code></li>
+<li>We will do this by inserting 2 bits of its hash at a time</li>
+<li>We can see that the first section, <code>00</code> already exists in A’s tree</li>
+<li>We don’t want to modify A’s trie, so we create this node in B and copy all the pointers that it has to A’s nodes</li>
+</ul>
+<!-- livebook:{"break_markdown":true} -->
+<p><img src="images/hamt_add_step_1.png" alt=""></p>
+<!-- livebook:{"break_markdown":true} -->
+<ul>
+<li>Lets look at the second section, the <code>00</code> already exists in A’s tree as well, so we create our own node in B and copy all the pointers that it has to A’s nodes</li>
+</ul>
+<!-- livebook:{"break_markdown":true} -->
+<p><img src="images/hamt_add_step_2.png" alt=""></p>
+<!-- livebook:{"break_markdown":true} -->
+<ul>
+<li>Lets look at the third section, the 00 again already exists in A’s tree, so we create our own node in B and copy all the pointers that it has to A’s nodes</li>
+</ul>
+<!-- livebook:{"break_markdown":true} -->
+<p><img src="images/hamt_add_step_3.png" alt=""></p>
+<!-- livebook:{"break_markdown":true} -->
+<ul>
+<li>Lets look at the fourth section, the <code>00</code> finally doesn’t have a connection in A’s tree, so we can create the node in our own tree without linking it to A's tree</li>
+<li>This is also the final section, so we can connect it to the key/value</li>
+</ul>
+<!-- livebook:{"break_markdown":true} -->
+<p><img src="images/hamt_add_step_4.png" alt=""></p>
+<!-- livebook:{"break_markdown":true} -->
+<p>So in this way, the Hash array mapped trie can effectively use old data structures when creating new ones, without mutating the old data structures</p>
+<ul>
+<li>
+<p>If you follow the paths down in the trie for A, you can see that it is unchanged - there is no way for it to reach the new paths created by b.</p>
+</li>
+<li>
+<p>B on the other hand has access to the nodes in A, as well as the new value inserted for &quot;elsa&quot;.</p>
+</li>
+<li>
+<p>This is how it doesn’t duplicate the HashMap every time it needs to create a new copy or add items.</p>
+</li>
+</ul>
+<h2 id="actual-implementation-in-erlang">Actual implementation in Erlang</h2>
+<ul>
+<li>I’ve taken simplified a lot of stuff from how its actually implemented in the Erlang BEAM, so heres some info</li>
+<li>The actual implementation:
+<ul>
+<li>Hashes keys into a 32 bit integer instead of a 8 bit integer, so collisions are much less likely to occur</li>
+<li>Each section it looks at is 4 bits long instead of 2 bits</li>
+<li>The pointers to nodes are stored much more efficiently.
+<ul>
+<li>You can notice in our diagrams that a lot of the array spaces in the nodes are empty - only the sections used in our words are used. This is pretty inefficient</li>
+<li>Instead of an array as we have shown here, they use a much more condensed implementation using a bitarray. If you want to know more about this you can check our their implementation code below or ask me about it afterwards.</li>
+</ul>
+</li>
+<li>They also use heaps of bit manipulations to make it <em>blazingly fast</em></li>
+</ul>
+</li>
+</ul>
+<p>Below is the implementation of the get for the Map implementation in Erlang's OTP with some comments for my own understanding and reference. Source link <a href="https://github.com/erlang/otp/blob/7bb67891eea35259c0a24ed1f54098ae1b454cea/erts/emulator/beam/erl_map.c">here</a></p>
+<!-- livebook:{"break_markdown":true} -->
+<pre class="hljs"><code><div>// hx is the hashed key
+const Eterm *
+erts_hashmap_get(Uint32 hx, Eterm key, Eterm node)
+{
+    /* thing_word tagscheme
+     * Need two bits for map subtags
+     *
+     * Original HEADER representation:
+     *
+     *     aaaaaaaaaaaaaaaa aaaaaaaaaatttt00       arity:26, tag:4
+     *
+     * For maps we have:
+     *
+     *     vvvvvvvvvvvvvvvv aaaaaaaamm111100       val:16, arity:8, mtype:2
+     *
+     * unsure about trailing zeros
+     *
+     * map-tag:
+     *     00 - flat map tag (non-hamt) -&gt; val:16 = #items
+     *     01 - map-node bitmap tag     -&gt; val:16 = bitmap
+     *     10 - map-head (array-node)   -&gt; val:16 = 0xffff
+     *     11 - map-head (bitmap-node)  -&gt; val:16 = bitmap
+     */
+
+    // hval is any one of the map-tag values above
+    // if 0xffff, it is an array node
+
+    /* erl_map.h stuff */
+    Eterm *ptr, hdr, *res;
+    Uint ix, lvl = 0;
+    Uint32 hval, bp;
+
+    ASSERT(is_boxed(node));
+    // node is a pointer
+    ptr = boxed_val(node);
+    // dereferences the pointer to get the header value
+    hdr = *ptr;
+    ASSERT(is_header(hdr));
+    ASSERT(is_hashmap_header_head(hdr));
+    ptr++;
+
+    // NOTE: Infinite loop
+    for (;;)
+    {
+        hval = MAP_HEADER_VAL(hdr);
+        // hx is the hashed key
+        // hashmap_index scopes hx to the current last 4 bits
+        ix = hashmap_index(hx);
+        // ix stores the index (ix corresponds to the ith element)
+
+        // If we are not in an array node, i.e we are in a bitmap
+        if (hval != 0xffff)
+        {
+            // bp is 100000... where its length is ix
+            // you can use this to get the ith value of hval by doing bp &amp; hval
+            // hval here is the bitmap
+            // so we are checking whether the ith value of the bitmap is set
+            // if it isn't set then we return null since the next node does not exist
+            bp = 1 &lt;&lt; ix;
+            if (!(bp &amp; hval))
+            {
+                /* not occupied */
+                res = NULL;
+                break;
+            }
+            // If we're here, that means that the next value does indeed exist, from our hashed key
+            // hval &amp; (bp - 1) first filters the bitmask to only contain bits to the right of our bit at the ix'th index
+            // we then count the number of bits to get the index of the array node that contains the pointer to the next node
+            ix = hashmap_bitcount(hval &amp; (bp - 1));
+        }
+        // Go to the next node
+        node = ptr[ix + 1];
+
+        // If our new node is a list, then the pointer is actually pointing to a key value pair
+        // If our original key is equal to the key stored at the pointer, then return the value
+        // Otherwise, we have a mismatch, return NULL
+        if (is_list(node))
+        { /* LEAF NODE [K|V] */
+            ptr = list_val(node);
+            res = EQ(CAR(ptr), key) ? &amp;(CDR(ptr)) : NULL;
+            break;
+        }
+
+        // Our levels go from 0 to 7 (inclusive) since we look at 4 bits each time.
+        // Since our level is never changed in this function, we always shift by 4
+        // #define hashmap_shift_hash(Hx, Lvl, Key)                                      \
+        //     (((++(Lvl)) &amp; 7) ?                                                        \
+        //      (Hx) &gt;&gt; 4 :                                                              \
+        //      make_map_hash(Key, ((Lvl) &gt;&gt; 3)))
+                // we shift by 3 at the last level since base 16 has
+
+        hx = hashmap_shift_hash(hx, lvl, key);
+
+        ASSERT(is_boxed(node));
+        ptr = boxed_val(node);
+        hdr = *ptr;
+        ASSERT(is_header(hdr));
+        ASSERT(!is_hashmap_header_head(hdr));
+    }
+
+    return res;
+}
+</div></code></pre>
+<h2 id="performance">Performance</h2>
+<table>
+<thead>
+<tr>
+<th>Operation</th>
+<th>Time Complexity</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Access</td>
+<td>O(log n)</td>
+</tr>
+<tr>
+<td>Search</td>
+<td>O(log n)</td>
+</tr>
+<tr>
+<td>Insertion</td>
+<td>O(n) for &lt; 32 elements, O(log n) for &gt;= 32 elements [2]</td>
+</tr>
+<tr>
+<td>Deletion</td>
+<td>O(n) for &lt; 32 elements, O(log n) for &gt;= 32 elements</td>
+</tr>
+</tbody>
+</table>
+<p>Since we have a Trie data structure, most things like insertion and deletion take O(log_32(n))</p>
+<p>This isn’t too bad though as our Trie’s depth is limited to the hash length / section length, which is usually around 7-8</p>
+<p>In practice, it is almost as performant as the regular old HashTable that allows O(n) access</p>
+<h2 id="conclusion">Conclusion</h2>
+<p>Diving into the implementations of data structures in Elixir was really interesting!
+I'd always have a nagging thought that I didn't really understand what was happening beneath the surface when coding,
+so it was a bit of a relief to finally gain some understanding of how these common data structures work in Elixir!</p>
+<p>Please let me know if you spot any issues/incorrect statements in what i've written above!^^</p>
+<h2 id="source">Source</h2>
+<ul>
+<li>You can find the markdown source for this post <a href="https://github.com/kvnyu/ds_elixir">here</a></li>
+</ul>
+<h2 id="references">References</h2>
+<p>https://github.com/erlang/otp</p>
+<p>https://iq.opengenus.org/time-complexity-of-array/</p>
+<p>https://iq.opengenus.org/time-complexity-of-linked-list/</p>
+<p>https://softwareengineering.stackexchange.com/questions/294983/why-do-haskell-and-scheme-use-singly-linked-lists</p>
+<p>https://dev.to/edisonywh/-elixir--why-linked-lists--1e9d</p>
+<p>https://stackoverflow.com/questions/25779783/practical-difference-between-erlang-mapsremove-2-and-mapswithout-2</p>
+<p>https://softwareengineering.stackexchange.com/questions/132309/why-are-cons-lists-associated-with-functional-programming</p>
+<p>https://gist.github.com/PJUllrich/4cd3d8e2e8c9170b560e5a501c13c9f3</p>
+<p>https://stackoverflow.com/questions/28676383/erlang-array-vs-list</p>
+<p>https://hypirion.com/musings/understanding-persistent-vector-pt-1</p>
+<p>https://www.quora.com/How-does-a-persistent-data-structure-in-functional-programming-work</p>
+<p>https://stackoverflow.com/questions/4399837/what-is-the-benefit-of-purely-functional-data-structure</p>
+<p>https://doc.lagout.org/programmation/Functional%20Programming/Chris_Okasaki-Purely_Functional_Data_Structures-Cambridge_University_Press%281998%29.pdf</p>
+<p>https://stackoverflow.com/questions/599153/are-some-data-structures-more-suitable-for-functional-programming-than-others
+https://inquisitivedeveloper.com/lwm-elixir-47/#:~:text=Maps%20in%20Elixir%20aren't,performance%20that%20hash%20tables%20have.</p>
+<p>https://inquisitivedeveloper.com/lwm-elixir-14/</p>
+<p>https://www.openmymind.net/Elixir-A-Little-Beyond-The-Basics-Part-1-lists/</p>
+<p>https://www.openmymind.net/Elixir-A-Little-Beyond-The-Basics-Part-3-maps/</p>
+<p>https://ferd.ca/erlang-s-tail-recursion-is-not-a-silver-bullet.html</p>
+<p>https://www.erlang.org/doc/efficiency_guide/myths.html#myth--operator--++--is-always-bad</p>
+<p>https://blog.acolyer.org/2015/11/27/hamt/</p>
+<p>https://worace.works/2016/05/24/hash-array-mapped-tries/</p>
+<p>https://www.erlang.org/doc/efficiency_guide/maps.html</p>
+<p>https://www.slideshare.net/ErlangSolutionsLtd/erlang-meetup-19-september-2017</p>
+<p>https://github.com/python/cpython/blob/main/Python/hamt.c</p>
+<p>https://moaazsidat.com/writings/2015-11-24-supercharging-react-with-immutablejs.md</p>
+<p>https://lampwww.epfl.ch/papers/idealhashtrees.pdf</p>
+<p>https://www.honeybadger.io/blog/elixir-memory-structure/</p>
+
+</body>
+</html>
